@@ -1,0 +1,47 @@
+---
+import { Picture } from "astro:assets";
+import Section from "./Section.astro";
+import Icon from "./Icon.astro";
+import facade from "../assets/clinic-facade.webp";
+import { clinic, principles } from "../data/clinic";
+
+const instagram = clinic.socials[0];
+---
+<Section id="clinic" class="section">
+  <div class="container clinic__grid">
+    <figure class="clinic__photo">
+      <Picture
+        src={facade}
+        formats={["avif"]}
+        fallbackFormat="webp"
+        widths={[360, 540, 702]}
+        sizes="(min-width: 80rem) 500px, (min-width: 64rem) 40vw, 100vw"
+        alt="Вхід до стоматології МедГарант, вул. Собранецька, 160"
+        loading="lazy"
+        decoding="async"
+        data-rec="R-SPD-03,R-SEO-11"
+      />
+      <figcaption>Вхід з вулиці Собранецької, 160</figcaption>
+    </figure>
+
+    <div class="clinic__text">
+      <h2>Клініка на Собранецькій, 160</h2>
+      <dl class="clinic__facts">
+        <div><dt>Працюємо вже</dt><dd>21 рік</dd></div>
+        <div><dt>Імпланти</dt><dd>MIS і Straumann</dd></div>
+      </dl>
+      <p class="clinic__lead">
+        В одній клініці — увесь шлях лікування: від консультації й терапії до протезування, імплантації та ортодонтії.
+      </p>
+      <h3>Чому обирають нас</h3>
+      <ul class="principles" role="list">
+        {principles.map((p) => <li>{p}</li>)}
+      </ul>
+      <a class="text-link" href={instagram.url} rel="noopener" target="_blank">
+        <Icon name="instagram" size={20} />
+        <span>Більше фото клініки в Instagram</span>
+        <span class="visually-hidden">(відкриється в новій вкладці)</span>
+      </a>
+    </div>
+  </div>
+</Section>

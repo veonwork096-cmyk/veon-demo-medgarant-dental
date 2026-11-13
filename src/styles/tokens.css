@@ -1,0 +1,89 @@
+/* Hallmark · shape: index-led clinic page (hero → treatment map → prices → people → place → hours and call) · genre: modern-minimal · theme: custom · job: book · idea: "Гарантія — це знати наперед: хто лікує, скільки коштує, коли й де" · vibe: "ясна, відкрита, місцева, точна клініка"
+ * paper: #E9E9EB · accent: #C9A35E · display: Piazzolla · body: Onest · hero: H1 over 7 of 12 columns with the call button, address and hours below, team photo beside it in 5 columns ending inside the first screen · nav: light sticky header with anchors and phone · footer: light compact · imagery: client photos · signature: treatment map «послуга → лікар → ціна»
+ * axes: light/roman-serif/warm · posture: restrained · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V3 · weakest: V (two portraits shot outside the studio series), cropped to the face and kept on the page background; reshoot is a client request in concept 8.10 */
+/* Hallmark · waive 7b · tokens.css --color-surface / --color-on-dark #FFFFFF · білі поверхні «Карти лікування» і прайсу та білий текст на синіх панелях узяті з затвердженої палітри клініки (#FFFFFF у veon-concept) */
+/* Hallmark · waive F4 · .btn--primary + .btn--gold · золота кнопка «Подзвонити» стоїть лише на синіх панелях цін і контактів, на світлому тлі сторінки — одна синя кнопка дзвінка */
+/* Client design tokens from design/concept.md (veon-concept: colors, fonts; 8.4 palette, 8.5 type scale). */
+:root {
+  /* Colour */
+  --color-bg: #E9E9EB;
+  --color-surface: #FFFFFF;
+  --color-text: #1B2654;
+  --color-primary: #1B2654;
+  --color-primary-hover: #26336B;
+  --color-muted: #4B5270;
+  --color-accent: #C9A35E;
+  --color-accent-hover: #D9B979;
+  --color-accent-ink: #7A5B24;
+  --color-on-dark: #FFFFFF;
+  --color-on-dark-muted: #B9BED0;
+  --color-border: #C8CAD2;
+  --color-border-strong: #4B5270;
+  --color-focus: #1B2654;
+  --color-focus-on-dark: #C9A35E;
+
+  /* Type */
+  --font-display: "Piazzolla Variable", "Piazzolla", Georgia, "Times New Roman", serif;
+  --font-body: "Onest Variable", "Onest", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --fs-h1: clamp(2.375rem, 1.1rem + 5vw, 5.5rem);
+  --fs-h1-split: clamp(2.375rem, 0.6rem + 3.9vw, 4.5rem);
+  --fs-h2: clamp(2rem, 1.3rem + 2.6vw, 3.5rem);
+  --fs-h3: clamp(1.375rem, 1.1rem + 1vw, 2rem);
+  --fs-lead: 1.25rem;
+  --fs-body: 1.0625rem;
+  --fs-small: 0.875rem;
+  --lh-h1: 1.02;
+  --lh-h2: 1.08;
+  --lh-h3: 1.15;
+  --lh-lead: 1.5;
+  --lh-body: 1.6;
+  --lh-small: 1.45;
+  --fw-display: 500;
+  --fw-body: 400;
+  --fw-strong: 500;
+
+  /* Space (8 px step) */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4rem;
+  --s-9: 6rem;
+  --s-10: 9rem;
+  --section-y: clamp(4rem, 10vw, 9rem);
+  --space: clamp(1.5rem, 0.6rem + 3.2vw, 4rem);
+  --container: 1280px;
+  --gap: clamp(1rem, 0.5rem + 1.6vw, 2rem);
+
+  /* Shape */
+  --radius: 4px;
+  --line: 1px;
+  --focus-ring: 2px;
+  --focus-offset: 2px;
+  --tap: 44px;
+  --btn-h: 52px;
+  --header-h: 56px;
+  --callbar-h: 72px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(.2, .7, .2, 1);
+  --dur: 600ms;
+  --dur-fast: 280ms;
+  --dur-bar: 250ms;
+  --dur-settle: 600ms;
+  --dur-mark: 900ms;
+  --reveal-y: 12px;
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --header-h: 72px;
+    --btn-h: 48px;
+    --dur-settle: 900ms;
+    --reveal-y: 24px;
+  }
+}

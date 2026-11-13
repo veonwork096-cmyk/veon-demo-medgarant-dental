@@ -1,0 +1,56 @@
+---
+import { Picture } from "astro:assets";
+import Section from "./Section.astro";
+import Icon from "./Icon.astro";
+import team from "../assets/team/team-cabinet.webp";
+import { clinic } from "../data/clinic";
+
+interface Props { h1: string; }
+const { h1 } = Astro.props;
+---
+<Section id="hero" rec="R-UX-01,R-UX-12,R-SPD-07" class="hero">
+  <div class="container hero__grid">
+    <h1 class="hero__title" data-rec="R-SEO-01,R-UX-13">{h1}</h1>
+
+    <div class="hero__body">
+      <p class="hero__lead">
+        Лікуємо дорослих уже 21 рік: терапія, протезування, імплантація MIS і Straumann, ортодонтія, а ціни на основні послуги й лікарів видно ще до дзвінка.
+      </p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href={clinic.phone.href}>
+          <span class="btn__label"><Icon name="phone" size={18} />Подзвонити</span>
+          <span class="btn__num">{clinic.phone.display}</span>
+        </a>
+        <a class="text-link" href="#price-start">
+          <span>Ціни: консультація 300 грн</span>
+          <Icon name="arrow-down" size={18} class="icon--down" />
+        </a>
+      </div>
+      <ul class="facts" role="list">
+        <li>
+          <Icon name="pin" size={18} />
+          <span><strong>{clinic.address.street}</strong>, {clinic.address.city}</span>
+        </li>
+        <li>
+          <Icon name="clock" size={18} />
+          <span><span class="nowrap">Пн–Пт 09:00–19:00</span>, <span class="nowrap">Сб 09:00–15:00</span>, <span class="nowrap">Нд вихідний</span></span>
+        </li>
+      </ul>
+    </div>
+
+    <figure class="hero__photo">
+      <Picture
+        src={team}
+        formats={["avif"]}
+        fallbackFormat="webp"
+        widths={[480, 720, 960, 1280]}
+        sizes="(min-width: 80rem) 500px, (min-width: 64rem) 38vw, 100vw"
+        alt="Команда стоматології МедГарант у лікувальному кабінеті"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        data-rec="R-SEO-07,R-SPD-02"
+      />
+    </figure>
+  </div>
+</Section>

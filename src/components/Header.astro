@@ -1,0 +1,67 @@
+---
+import { Image } from "astro:assets";
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import logo from "../assets/logo-medgarant.webp";
+import { clinic } from "../data/clinic";
+
+export interface NavItem { href: string; label: string; }
+interface Props { nav: NavItem[]; }
+const { nav } = Astro.props;
+---
+<header class="header">
+  <div class="container header__bar">
+    <a class="header__logo" href="#top" aria-label="МедГарант, на початок сторінки">
+      <Image src={logo} alt="" width={168} height={128} loading="eager" />
+    </a>
+
+    <nav class="header__nav" aria-label="Розділи сторінки">
+      <ul role="list">
+        {nav.map((i) => <li><a href={i.href}>{i.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <a class="header__phone" href={clinic.phone.href} data-rec="R-UX-13">
+      <Icon name="phone" size={18} />
+      <span><span class="visually-hidden">Подзвонити: </span>{clinic.phone.display}</span>
+    </a>
+
+    <div class="header__lang lang" aria-label="Мова сайту" role="group">
+      <span class="lang__current" aria-current="true" lang="uk">UK</span>
+      <span class="lang__sep" aria-hidden="true">|</span>
+      <FutureLink note="Розділ у розробці"><span lang="sk">SK</span><span class="visually-hidden">, словацька версія</span></FutureLink>
+    </div>
+
+    <a class="header__call" href={clinic.phone.href} data-rec="R-UX-13">
+      <Icon name="phone" size={18} />
+      <span>Подзвонити</span>
+    </a>
+
+    <details class="menu" data-menu>
+      <summary aria-label="Меню">
+        <Icon name="menu" class="icon--menu" />
+        <Icon name="close" class="icon--close" />
+        <span aria-hidden="true">Меню</span>
+      </summary>
+      <div class="menu__panel">
+        <nav aria-label="Меню">
+          <ul class="menu__list" role="list">
+            {nav.map((i) => <li><a href={i.href}>{i.label}</a></li>)}
+          </ul>
+        </nav>
+        <div class="menu__foot">
+          <a class="btn btn--primary" href={clinic.phone.href}>
+            <span class="btn__label"><Icon name="phone" size={18} />Подзвонити</span>
+            <span class="btn__num">{clinic.phone.display}</span>
+          </a>
+          <p class="menu__hours">{clinic.address.street}, {clinic.address.city}<br />Пн–Пт 09:00–19:00, Сб 09:00–15:00, Нд вихідний</p>
+          <div class="lang" role="group" aria-label="Мова сайту">
+            <span class="lang__current" aria-current="true">UK</span>
+            <span class="lang__sep" aria-hidden="true">|</span>
+            <FutureLink note="Розділ у розробці"><span lang="sk">SK</span><span class="visually-hidden">, словацька версія</span></FutureLink>
+          </div>
+        </div>
+      </div>
+    </details>
+  </div>
+</header>

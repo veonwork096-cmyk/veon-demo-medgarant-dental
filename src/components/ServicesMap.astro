@@ -1,0 +1,59 @@
+---
+// Signature: «Карта лікування» — direction, who leads it (by specialisation, W-F004), price from (W-F005), link to its prices.
+import Section from "./Section.astro";
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import { services, doctors } from "../data/clinic";
+
+const nameOf = Object.fromEntries(doctors.map((d) => [d.id, d.name]));
+---
+<Section id="services" rec="R-UX-05,R-UX-12" class="section">
+  <div class="container">
+    <header class="section-head">
+      <h2>Дев'ять напрямів лікування — і хто з лікарів їх веде</h2>
+      <p>У кожному рядку: напрям, лікарі за спеціалізацією і ціна з прайсу клініки в гривнях.</p>
+    </header>
+
+    <div class="map__head" aria-hidden="true">
+      <span>Напрям</span><span>Лікарі</span><span>Ціна</span><span></span>
+    </div>
+    <ol class="map" role="list" data-rec="R-SEO-11">
+      {services.map((s) => (
+        <li class="map__row" id={`svc-${s.id}`}>
+          <div class="map__name">
+            <h3>{s.name}</h3>
+            {s.note && <p class="map__note">{s.note}</p>}
+          </div>
+
+          <div class="map__docs">
+            <span class="visually-hidden">Лікарі: </span>
+            {s.doctors.length > 0 ? (
+              <ul role="list">
+                {s.doctors.map((d) => <li><a href={`#doc-${d}`}>{nameOf[d]}</a></li>)}
+              </ul>
+            ) : (
+              <p class="map__none">Лікаря уточнюйте за телефоном</p>
+            )}
+          </div>
+
+          <p class="map__price">
+            <span class="visually-hidden">Ціна: </span>
+            {s.from ? (
+              <span class="map__val"><span class="map__from">{s.fromLabel}</span> <strong class="num">{s.from}</strong></span>
+            ) : (
+              <span class="map__ask">Вартість уточнюйте за телефоном</span>
+            )}
+          </p>
+
+          <a class="text-link map__go" href={`#${s.priceAnchor}`}>
+            <span class="map__go-text">{s.priceLink}</span>
+            <Icon name="arrow-down" size={18} class="icon--down" />
+          </a>
+        </li>
+      ))}
+    </ol>
+    <p class="map__more">
+      <FutureLink note="Розділ у розробці">Окремі сторінки напрямів</FutureLink>
+    </p>
+  </div>
+</Section>

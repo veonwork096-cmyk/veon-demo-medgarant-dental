@@ -1,0 +1,55 @@
+---
+import { Picture } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import Section from "./Section.astro";
+import { doctors, services } from "../data/clinic";
+import piddubnyi from "../assets/team/piddubnyi-a-a.webp";
+import piddubna from "../assets/team/piddubna-o-v.webp";
+import knysh from "../assets/team/knysh-d-m.jpg";
+import zerov from "../assets/team/zerov-o-v.webp";
+import povaha from "../assets/team/povaha-v-s.jpg";
+
+const photos: Record<string, ImageMetadata> = { piddubnyi, piddubna, knysh, zerov, povaha };
+const serviceName = Object.fromEntries(services.map((s) => [s.id, s.name]));
+---
+<Section id="doctors" rec="R-UX-09,S-R009" class="section">
+  <div class="container">
+    <header class="section-head">
+      <h2>П'ятеро лікарів — поіменно і за спеціалізацією</h2>
+      <p>Спеціалізація лікаря веде до напряму лікування в карті вище.</p>
+    </header>
+
+    <ul class="team" role="list">
+      {doctors.map((d, i) => (
+        <li class="doc" id={`doc-${d.id}`} data-reveal style={`--reveal-delay:${i * 70}ms`}>
+          <figure class="doc__photo">
+            <Picture
+              src={photos[d.id]}
+              formats={["avif"]}
+              fallbackFormat="webp"
+              widths={[320, 480, 640]}
+              sizes="(min-width: 80rem) 240px, (min-width: 64rem) 18vw, (min-width: 48rem) 30vw, 46vw"
+              alt={`${d.full}, лікар-стоматолог: ${d.specs.map((s) => s.label).join(", ")}`}
+              loading="lazy"
+              decoding="async"
+              data-rec="R-SPD-03,R-SEO-11"
+            />
+          </figure>
+          <h3>{d.full}</h3>
+          <ul class="doc__specs" role="list" aria-label={`Спеціалізація: ${d.name}`}>
+            {d.specs.map((s) => (
+              <li>
+                {s.service ? (
+                  <a href={`#svc-${s.service}`} title={`Напрям: ${serviceName[s.service]}`}>{s.label}</a>
+                ) : (
+                  <span>{s.label}</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ul>
+    <p class="team__more">У команді також два асистенти та адміністратор.</p>
+  </div>
+</Section>

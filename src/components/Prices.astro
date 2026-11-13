@@ -1,0 +1,55 @@
+---
+import Section from "./Section.astro";
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import { clinic, startPrices, priceSets } from "../data/clinic";
+---
+<Section id="prices" rec="R-UX-07,S-R010" class="section">
+  <div class="container">
+    <header class="section-head">
+      <h2>Ціни в гривнях. Починаємо з консультації за 300 грн</h2>
+      <p>Ціни з прайсу клініки. Вартість імплантів MIS і Straumann уточнюйте за телефоном.</p>
+    </header>
+
+    <div class="prices__grid">
+      <div class="start dark" id="price-start">
+        <h3>З чого почати</h3>
+        <dl>
+          {startPrices.map((p) => (
+            <div>
+              <dt>{p.name}</dt>
+              <dd><span class="num">{p.price}</span> <span class="unit">грн</span></dd>
+            </div>
+          ))}
+        </dl>
+        <p class="start__note">Записатися можна телефоном у робочий час: Пн–Пт 09:00–19:00, Сб 09:00–15:00.</p>
+        <a class="btn btn--gold" href={clinic.phone.href}>
+          <span class="btn__label"><Icon name="phone" size={18} />Подзвонити</span>
+          <span class="btn__num">{clinic.phone.display}</span>
+        </a>
+      </div>
+
+      <div class="plist">
+        <div class="plist__sets">
+          {priceSets.map((g) => (
+            <section class="pset" id={g.id} aria-labelledby={`${g.id}-h`}>
+              <h3 id={`${g.id}-h`}>{g.title}</h3>
+              <dl>
+                {g.items.map((i) => (
+                  <div>
+                    <dt>{i.name}</dt>
+                    {i.price ? <dd>{i.price}</dd> : <dd class="ask">вартість уточнюйте за телефоном</dd>}
+                  </div>
+                ))}
+              </dl>
+            </section>
+          ))}
+        </div>
+        <div class="plist__foot">
+          <span>Тут основні позиції прайсу.</span>
+          <FutureLink note="Розділ у розробці">Повний прайс</FutureLink>
+        </div>
+      </div>
+    </div>
+  </div>
+</Section>

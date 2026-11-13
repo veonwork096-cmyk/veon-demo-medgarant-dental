@@ -1,0 +1,41 @@
+---
+import { Image } from "astro:assets";
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import logo from "../assets/logo-medgarant.webp";
+import { clinic } from "../data/clinic";
+import type { NavItem } from "./Header.astro";
+
+interface Props { nav: NavItem[]; }
+const { nav } = Astro.props;
+---
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a class="footer__logo" href="#top" aria-label="МедГарант, на початок сторінки">
+          <Image src={logo} alt="" width={192} height={147} loading="lazy" decoding="async" />
+        </a>
+      </div>
+      <nav class="footer__nav" aria-label="Розділи сторінки внизу">
+        <ul role="list">
+          {nav.map((i) => <li><a href={i.href}>{i.label}</a></li>)}
+        </ul>
+      </nav>
+      <ul class="footer__social" role="list">
+        {clinic.socials.map((s) => (
+          <li>
+            <a href={s.url} rel="noopener" target="_blank">
+              <Icon name={s.name === "Instagram" ? "instagram" : "facebook"} size={18} />
+              {s.name}<span class="visually-hidden"> (відкриється в новій вкладці)</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="footer__bottom">
+      <span>© МедГарант, стоматологія в Ужгороді</span>
+      <FutureLink note="Розділ у розробці">Політика конфіденційності</FutureLink>
+    </div>
+  </div>
+</footer>

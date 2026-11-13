@@ -1,0 +1,83 @@
+---
+import "@fontsource-variable/piazzolla/opsz.css";
+import "@fontsource-variable/onest/wght.css";
+import "../styles/site.css";
+import onestCyr from "@fontsource-variable/onest/files/onest-cyrillic-wght-normal.woff2?url";
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import ServicesMap from "../components/ServicesMap.astro";
+import Prices from "../components/Prices.astro";
+import Doctors from "../components/Doctors.astro";
+import Clinic from "../components/Clinic.astro";
+import Contacts from "../components/Contacts.astro";
+import Footer from "../components/Footer.astro";
+import CallBar from "../components/CallBar.astro";
+import { clinic } from "../data/clinic";
+
+const h1 = "Стоматологія МедГарант в Ужгороді — від консультації до імплантації";
+const title = "Стоматологія МедГарант в Ужгороді — ціни, лікарі, контакти";
+const description =
+  "Стоматологія для дорослих в Ужгороді, вул. Собранецька, 160: терапія, протезування, імплантація MIS і Straumann, ортодонтія. Ціни на сайті. +380 95 802 92 85";
+
+const nav = [
+  { href: "#services", label: "Послуги" },
+  { href: "#prices", label: "Ціни" },
+  { href: "#doctors", label: "Лікарі" },
+  { href: "#clinic", label: "Про клініку" },
+  { href: "#contacts", label: "Контакти" },
+];
+
+// schema.org Dentist: only facts from veon/client.json (no rating, no invented fields).
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Dentist",
+  name: "МедГарант",
+  alternateName: "MedGarant",
+  description: "Стоматологія для дорослих в Ужгороді: терапія, ендодонтія, професійна гігієна, видалення, імплантація MIS і Straumann, протезування, ортодонтія.",
+  telephone: clinic.phone.e164,
+  email: clinic.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "вул. Собранецька, 160",
+    addressLocality: "Ужгород",
+    addressRegion: "Закарпатська область",
+    postalCode: "88000",
+    addressCountry: "UA",
+  },
+  openingHoursSpecification: [
+    { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "19:00" },
+    { "@type": "OpeningHoursSpecification", dayOfWeek: "Saturday", opens: "09:00", closes: "15:00" },
+  ],
+  currenciesAccepted: "UAH",
+  sameAs: clinic.socials.map((s) => s.url),
+};
+---
+<Base lang="uk" title={title} description={description}>
+  <Fragment slot="head">
+    <link rel="preload" href={onestCyr} as="font" type="font/woff2" crossorigin data-rec="R-SPD-06" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <meta name="theme-color" content="#E9E9EB" />
+    <meta property="og:locale" content="uk_UA" />
+    <meta property="og:type" content="website" />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} data-rec="R-SEO-03" />
+  </Fragment>
+
+  <Header slot="header" nav={nav} />
+
+  <Hero h1={h1} />
+  <ServicesMap />
+  <Prices />
+  <Doctors />
+  <Clinic />
+  <Contacts />
+
+  <Fragment slot="footer">
+    <Footer nav={nav} />
+    <CallBar />
+  </Fragment>
+</Base>
+
+<script>
+  import "../scripts/page.ts";
+</script>

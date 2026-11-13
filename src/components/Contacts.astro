@@ -1,0 +1,63 @@
+---
+import Section from "./Section.astro";
+import Icon from "./Icon.astro";
+import { clinic } from "../data/clinic";
+---
+<Section id="contacts" class="section dark">
+  <div class="container contacts__grid">
+    <div class="contacts__call">
+      <h2>Подзвоніть — адміністратор запише на консультацію</h2>
+      <a class="contacts__phone" href={clinic.phone.href}>{clinic.phone.display}</a>
+      <a class="btn btn--gold" href={clinic.phone.href} data-rec="R-UX-13">
+        <span class="btn__label"><Icon name="phone" size={18} />Подзвонити</span>
+      </a>
+      <p class="contacts__sk" lang="sk">
+        Pacienti zo Slovenska: volajte <a href={clinic.phone.href}>{clinic.phone.display}</a>
+      </p>
+    </div>
+
+    <dl class="info contacts__info">
+      <div>
+        <dt>Адреса</dt>
+        <dd>
+          <span>{clinic.address.full}</span>
+          <a class="text-link" href={clinic.mapUrl} rel="noopener" target="_blank">
+            <Icon name="pin" size={18} />
+            <span>Як дістатися</span>
+            <span class="visually-hidden">(карта відкриється в новій вкладці)</span>
+          </a>
+        </dd>
+      </div>
+      <div>
+        <dt>Графік роботи</dt>
+        <dd>
+          <ul class="hours" role="list">
+            {clinic.hours.map((h) => (
+              <li><abbr title={h.label}>{h.days}</abbr><span>{h.time}</span></li>
+            ))}
+          </ul>
+        </dd>
+      </div>
+      <div>
+        <dt>Соцмережі</dt>
+        <dd>
+          <ul class="social" role="list" data-rec="R-UX-13">
+            {clinic.socials.map((s) => (
+              <li>
+                <a href={s.url} rel="noopener" target="_blank">
+                  <Icon name={s.name === "Instagram" ? "instagram" : "facebook"} size={20} />
+                  <span>{s.name}</span>
+                  <span class="visually-hidden">МедГарант (відкриється в новій вкладці)</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </dd>
+      </div>
+      <div class="info__mail">
+        <dt>E-mail</dt>
+        <dd><a href={`mailto:${clinic.email}`}>{clinic.email}</a></dd>
+      </div>
+    </dl>
+  </div>
+</Section>

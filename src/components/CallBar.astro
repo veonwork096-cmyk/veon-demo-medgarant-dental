@@ -1,0 +1,11 @@
+---
+// Phone-only sticky call button: shows after the hero, hides while contacts are on screen (script in index.astro).
+import Icon from "./Icon.astro";
+import { clinic } from "../data/clinic";
+---
+<div class="callbar" data-callbar data-rec="R-UX-02">
+  <a class="btn btn--primary" href={clinic.phone.href}>
+    <span class="btn__label"><Icon name="phone" size={18} />Подзвонити</span>
+    <span class="btn__num">{clinic.phone.display}</span>
+  </a>
+</div>
